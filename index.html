@@ -90,6 +90,7 @@ header {
   z-index: 10;
   text-align: center;
   padding: 3.5rem 1.5rem 2rem;
+  padding-top: 100px;
 }
 
 .site-badge {
@@ -692,10 +693,71 @@ footer {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(0,245,255,0.2); border-radius: 4px; }
+
+/* Live counter */
+.live-counter {
+  position: fixed;
+  top: 16px; right: 16px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  pointer-events: none;
+}
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,255,136,0.07);
+  border: 1px solid rgba(0,255,136,0.25);
+  border-radius: 100px;
+  padding: 7px 14px;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(8px);
+}
+.visit-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,245,255,0.07);
+  border: 1px solid rgba(0,245,255,0.25);
+  border-radius: 100px;
+  padding: 7px 14px;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  color: var(--cyan);
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(8px);
+}
+.live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  animation: blink 1.2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.visit-icon { font-size: 11px; }
 </style>
 </head>
 <body>
 <div class="orb2"></div>
+
+<!-- Live Counter -->
+<div class="live-counter">
+  <div class="live-badge">
+    <div class="live-dot"></div>
+    <span id="liveCount">127</span> people getting script right now
+  </div>
+  <div class="visit-badge">
+    <span class="visit-icon">👁</span>
+    Visited more than <span id="visitCount">1,000</span> times
+  </div>
+</div>
 
 <!-- ===== HEADER ===== -->
 <header>
@@ -1158,6 +1220,42 @@ function checkVerified() {
 document.getElementById('modalBd').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
+
+// Live counter animation (50–200)
+function animateLiveCount() {
+  const el = document.getElementById('liveCount');
+  let current = Math.floor(Math.random() * 151) + 50;
+  el.textContent = current;
+  setInterval(() => {
+    const change = Math.floor(Math.random() * 31) - 15;
+    current = Math.min(200, Math.max(50, current + change));
+    el.textContent = current;
+  }, 2000);
+}
+
+// Visit counter - increments automatically
+function updateVisitCount() {
+  try {
+    let count = parseInt(localStorage.getItem('visitCount') || '1000');
+    count += 1;
+    localStorage.setItem('visitCount', count);
+    const el = document.getElementById('visitCount');
+    if (el) el.textContent = count.toLocaleString();
+    // Auto increment every 4-8 seconds
+    setTimeout(() => {
+      let c = parseInt(localStorage.getItem('visitCount') || '1000');
+      setInterval(() => {
+        c += Math.floor(Math.random() * 3) + 1;
+        localStorage.setItem('visitCount', c);
+        const e = document.getElementById('visitCount');
+        if (e) e.textContent = c.toLocaleString();
+      }, Math.floor(Math.random() * 4000) + 4000);
+    }, 1000);
+  } catch(e) {}
+}
+
+animateLiveCount();
+updateVisitCount();
 
 // Init
 renderCards(SCRIPTS);
