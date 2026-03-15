@@ -696,14 +696,19 @@ footer {
 
 /* Live counter */
 .live-counter {
-  position: fixed;
-  top: 16px; right: 16px;
-  z-index: 999;
+  position: fixed !important;
+  top: 16px !important;
+  right: 16px !important;
+  z-index: 9999 !important;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 6px;
   pointer-events: none;
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 .live-badge {
   display: flex;
@@ -755,7 +760,7 @@ footer {
   </div>
   <div class="visit-badge">
     <span class="visit-icon">👁</span>
-    Visited more than <span id="visitCount">1,000</span> times
+    Visited more than 10,000+ Times
   </div>
 </div>
 
@@ -1221,6 +1226,15 @@ document.getElementById('modalBd').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
+// Force fixed position on scroll (mobile fix)
+const liveCounter = document.querySelector('.live-counter');
+window.addEventListener('scroll', function() {
+  if (liveCounter) {
+    liveCounter.style.top = '16px';
+    liveCounter.style.right = '16px';
+  }
+}, { passive: true });
+
 // Live counter animation (50–200)
 function animateLiveCount() {
   const el = document.getElementById('liveCount');
@@ -1236,14 +1250,14 @@ function animateLiveCount() {
 // Visit counter - increments automatically
 function updateVisitCount() {
   try {
-    let count = parseInt(localStorage.getItem('visitCount') || '1000');
+    let count = parseInt(localStorage.getItem('visitCount') || '10000');
     count += 1;
     localStorage.setItem('visitCount', count);
     const el = document.getElementById('visitCount');
     if (el) el.textContent = count.toLocaleString();
     // Auto increment every 4-8 seconds
     setTimeout(() => {
-      let c = parseInt(localStorage.getItem('visitCount') || '1000');
+      let c = parseInt(localStorage.getItem('visitCount') || '10000');
       setInterval(() => {
         c += Math.floor(Math.random() * 3) + 1;
         localStorage.setItem('visitCount', c);
