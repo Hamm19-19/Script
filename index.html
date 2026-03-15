@@ -704,7 +704,7 @@ footer {
   <p class="subtitle">Free Roblox Scripts — Verified &amp; Updated</p>
   <div class="stats-bar">
     <div class="stat">
-      <span class="stat-num" id="totalScripts">4</span>
+      <span class="stat-num" id="totalScripts">6</span>
       <span class="stat-label">Scripts</span>
     </div>
     <div class="stat-sep"></div>
@@ -728,7 +728,14 @@ footer {
 
 <!-- FILTER TABS -->
 <div class="filter-wrap">
-  <button class="filter-btn active">Roblox</button>
+  <button class="filter-btn active" onclick="setFilter('all', this)">Semua</button>
+  <button class="filter-btn" onclick="setFilter('escape-tsunami', this)">Escape Tsunami</button>
+  <button class="filter-btn" onclick="setFilter('fish-it', this)">Fish It</button>
+  <button class="filter-btn" onclick="setFilter('garden-horizons', this)">Garden Horizons</button>
+  <button class="filter-btn" onclick="setFilter('grow-a-garden', this)">Grow A Garden</button>
+  <button class="filter-btn" onclick="setFilter('steal-a-brainrot', this)">Steal A Brainrot</button>
+  <button class="filter-btn" onclick="setFilter('blox-fruit', this)">Blox Fruit</button>
+  <button class="filter-btn" onclick="setFilter('other', this)">Other Game</button>
 </div>
 
 <!-- GRID -->
@@ -767,98 +774,73 @@ footer {
 // =============================================
 // ===  KONFIGURASI SCRIPT - EDIT DI SINI  ===
 // =============================================
-const BASE_URL = "https://yourwebsite.com"; // << Ganti dengan domain Anda
+const BASE_URL = "https://hamm19-19.github.io/Script";
 
 const SCRIPTS = [
   {
     id: 1,
-    name: "Solix Hub",
+    name: "VinzHub",
     game: "Escape Tsunami For Brainrot",
-    category: "farming",
+    category: "escape-tsunami",
     icon: "🌊",
-    accentColor: "#00ff88",
-    desc: "Best script for escape tsunami for brainrot.",
-    features: ["Auto Patrick Event", "Auto Tower", "Auto Farm", "Auto Sell"],
+    accentColor: "#00f5ff",
+    desc: "The Best Script for Escape Tsunami For Brainrot",
+    features: ["Update New Event"],
     status: ["FREE", "HOT"],
-    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD", // << Ganti
-    code: `-- Solix Hub - Escape Tsunami For Brainrot
--- Made by: YourName
--- loadstring(game:HttpGet("https://yourscript.com/solixhub.lua"))()`
+    adUrl: "https://link-center.net/4278475/zKoXge8ZcRcJ",
+    code: `loadstring(game:HttpGet("https://script.vinzhub.com/loader"))()`
   },
   {
     id: 2,
-    name: "ESP & Aimbot",
-    game: "Arsenal",
-    category: "combat",
-    icon: "🎯",
-    accentColor: "#ff3366",
-    desc: "Lihat semua pemain melalui tembok. Aimbot presisi tinggi dengan silent aim.",
-    features: ["Player ESP", "Silent Aim", "No Recoil", "Speed"],
-    status: ["FREE", "NEW"],
-    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD",
-    code: `-- ESP & Aimbot - Arsenal
--- Made by: YourName
--- loadstring(game:HttpGet("https://yourscript.com/arsenal-esp.lua"))()`
+    name: "Osaka Hub",
+    game: "Escape Tsunami For Brainrot",
+    category: "escape-tsunami",
+    icon: "🌊",
+    accentColor: "#00ff88",
+    desc: "The Best Script for Escape Tsunami For Brainrot",
+    features: ["Update New Event"],
+    status: ["FREE"],
+    adUrl: "https://direct-link.net/4278475/XNNlD1ZMccwr",
+    code: `loadstring(game:HttpGet("https://raw.githubusercontent.com/osakaTP2/OsakaTP2/main/Escape%20tsunami%20for%20brainrotsGalaxy6.5"))()`
   },
   {
     id: 3,
-    name: "Infinite Yield",
-    game: "All Games",
-    category: "utility",
+    name: "Speed Hub",
+    game: "Escape Tsunami For Brainrot",
+    category: "escape-tsunami",
     icon: "⚡",
     accentColor: "#ffaa00",
-    desc: "Admin commands lengkap untuk semua game. Lebih dari 200 command tersedia.",
-    features: ["200+ CMD", "All Games", "Fly", "Noclip"],
+    desc: "The Best Script for Escape Tsunami For Brainrot",
+    features: ["Update New Event"],
     status: ["FREE"],
-    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD",
-    code: `-- Infinite Yield
--- Made by: YourName
--- loadstring(game:HttpGet("https://yourscript.com/iy.lua"))()`
+    adUrl: "https://direct-link.net/4278475/XNNlD1ZMccwr",
+    code: `loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()`
   },
   {
     id: 4,
-    name: "Dupe GUI v3",
-    game: "Pet Simulator X",
-    category: "gui",
-    icon: "🖥️",
-    accentColor: "#b04cff",
-    desc: "Interface GUI lengkap untuk dupe pet, auto collect, dan farm coins.",
-    features: ["Auto Farm", "Dupe", "GUI Panel", "Safe Mode"],
-    status: ["FREE", "UPD"],
-    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD",
-    code: `-- Dupe GUI v3 - Pet Sim X
--- Made by: YourName
--- loadstring(game:HttpGet("https://yourscript.com/psxgui.lua"))()`
+    name: "Tora",
+    game: "Escape Tsunami For Brainrot",
+    category: "escape-tsunami",
+    icon: "🐯",
+    accentColor: "#ff3366",
+    desc: "The Best Script for Escape Tsunami For Brainrot",
+    features: ["Update New Event"],
+    status: ["FREE"],
+    adUrl: "https://direct-link.net/4278475/XNNlD1ZMccwr",
+    code: `loadstring(game:HttpGet("https://raw.githubusercontent.com/gumanba/Scripts/main/EscapeTsunamiForBrainrots"))()`
   },
   {
     id: 5,
-    name: "Speed & Fly Hack",
-    game: "All Games",
-    category: "utility",
-    icon: "🚀",
-    accentColor: "#00f5ff",
-    desc: "Speed boost dan fly mode untuk hampir semua game. Anti-kick built-in.",
-    features: ["Speed x50", "Fly Mode", "Anti-Kick", "All Games"],
+    name: "FlowHub",
+    game: "Escape Tsunami For Brainrot",
+    category: "escape-tsunami",
+    icon: "🌀",
+    accentColor: "#b04cff",
+    desc: "The Best Script for Escape Tsunami For Brainrot",
+    features: ["Update New Event"],
     status: ["FREE"],
-    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD",
-    code: `-- Speed & Fly Hack
--- Made by: YourName
--- loadstring(game:HttpGet("https://yourscript.com/speedfly.lua"))()`
-  },
-  {
-    id: 6,
-    name: "Auto Raid Farm",
-    game: "Blox Fruits",
-    category: "farming",
-    icon: "⚔️",
-    accentColor: "#ff3366",
-    desc: "Auto raid dan collect reward secara otomatis. Support co-op raid.",
-    features: ["Auto Raid", "Co-op", "Reward Farm", "24/7"],
-    status: ["FREE", "HOT"],
-    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD",
-    code: `-- Auto Raid Farm - Blox Fruits
--- Made by: YourName
--- loadstring(game:HttpGet("https://yourscript.com/bloxraid.lua"))()`
+    adUrl: "https://link-hub.net/4278475/hycAx4xVQTUi",
+    code: `loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/5946add9ab91f1e04cb005346a8b1968.lua"))()`
   }
 ];
 // ============================================
@@ -877,6 +859,14 @@ const STATUS_LABEL = {
 };
 
 let currentScript = null;
+let activeFilter = 'all';
+
+function setFilter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterScripts();
+}
 
 function renderCards(list) {
   const grid = document.getElementById('scriptGrid');
@@ -920,6 +910,7 @@ function renderCards(list) {
 function filterScripts() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   let list = SCRIPTS;
+  if (activeFilter !== 'all') list = list.filter(s => s.category === activeFilter);
   if (q) list = list.filter(s =>
     s.name.toLowerCase().includes(q) ||
     s.game.toLowerCase().includes(q) ||
