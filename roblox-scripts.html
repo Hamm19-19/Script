@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Script Hub — Roblox Scripts</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #050508;
+  --bg2: #0a0a10;
+  --bg3: #0f0f18;
+  --card: #0d0d16;
+  --card-hover: #131320;
+  --cyan: #00f5ff;
+  --cyan-dim: rgba(0,245,255,0.15);
+  --cyan-glow: rgba(0,245,255,0.4);
+  --red: #ff3366;
+  --red-dim: rgba(255,51,102,0.15);
+  --green: #00ff88;
+  --green-dim: rgba(0,255,136,0.15);
+  --purple: #b04cff;
+  --purple-dim: rgba(176,76,255,0.15);
+  --amber: #ffaa00;
+  --amber-dim: rgba(255,170,0,0.15);
+  --text: #e8e8f0;
+  --text-muted: #5a5a7a;
+  --border: rgba(0,245,255,0.12);
+}
+
+html, body {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Animated grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Glowing orbs */
+body::after {
+  content: '';
+  position: fixed;
+  top: -300px; left: -300px;
+  width: 800px; height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,245,255,0.04) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  animation: driftOrb 20s ease-in-out infinite alternate;
+}
+
+@keyframes driftOrb {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(200px, 100px); }
+}
+
+.orb2 {
+  position: fixed;
+  bottom: -200px; right: -200px;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(176,76,255,0.05) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  animation: driftOrb2 15s ease-in-out infinite alternate;
+}
+@keyframes driftOrb2 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-150px, -80px); }
+}
+
+/* HEADER */
+header {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 3.5rem 1.5rem 2rem;
+}
+
+.site-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: var(--cyan);
+  border: 1px solid rgba(0,245,255,0.3);
+  border-radius: 100px;
+  padding: 6px 16px;
+  margin-bottom: 1.5rem;
+  background: rgba(0,245,255,0.05);
+  animation: fadeDown 0.5s ease both;
+}
+
+.site-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(0,245,255,0.3);
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+  animation: fadeDown 0.6s ease 0.1s both;
+}
+
+h1 .accent { color: var(--cyan); }
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 2.5rem;
+  animation: fadeDown 0.6s ease 0.2s both;
+}
+
+/* STATS BAR */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+  animation: fadeDown 0.6s ease 0.3s both;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.stat-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cyan);
+}
+
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.stat-sep {
+  width: 1px;
+  height: 30px;
+  background: var(--border);
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* SEARCH BAR */
+.search-wrap {
+  position: relative;
+  z-index: 10;
+  max-width: 480px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+  animation: fadeDown 0.6s ease 0.35s both;
+}
+
+.search-input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 20px 12px 44px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-input:focus {
+  border-color: rgba(0,245,255,0.4);
+  box-shadow: 0 0 0 3px rgba(0,245,255,0.08);
+}
+.search-input::placeholder { color: var(--text-muted); }
+
+.search-icon {
+  position: absolute;
+  left: 32px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+/* FILTER TABS */
+.filter-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 10;
+  padding: 0 1.5rem;
+  animation: fadeDown 0.6s ease 0.4s both;
+}
+
+.filter-btn {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  background: var(--bg3);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+.filter-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+.filter-btn.active { color: var(--cyan); border-color: rgba(0,245,255,0.4); background: rgba(0,245,255,0.07); }
+
+/* GRID */
+.grid-wrap {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+/* SCRIPT CARD */
+.script-card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: border-color 0.25s, background 0.25s, transform 0.2s, box-shadow 0.25s;
+  animation: fadeUp 0.5s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+.script-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 16px 16px 0 0;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.script-card:hover {
+  background: var(--card-hover);
+  transform: translateY(-3px);
+}
+
+.script-card:hover::before { opacity: 1; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Card top row */
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.card-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.card-badges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.badge {
+  font-family: 'Orbitron', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1px solid;
+  text-transform: uppercase;
+}
+
+/* Status badge */
+.badge-free { background: rgba(0,255,136,0.1); border-color: rgba(0,255,136,0.35); color: #00ff88; }
+.badge-new  { background: rgba(0,245,255,0.1); border-color: rgba(0,245,255,0.35); color: var(--cyan); }
+.badge-hot  { background: rgba(255,51,102,0.1); border-color: rgba(255,51,102,0.35); color: var(--red); }
+.badge-upd  { background: rgba(255,170,0,0.1); border-color: rgba(255,170,0,0.35); color: var(--amber); }
+
+.card-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+
+.card-game {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.card-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: #8888a8;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+/* Features tags */
+.card-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.feat-tag {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+}
+
+/* CTA button */
+.card-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: 10px;
+  border: 1px solid;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.card-btn:hover {
+  transform: scale(1.02);
+}
+
+.card-btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+/* ===== MODAL ===== */
+.modal-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.modal-backdrop.open { display: flex; }
+
+.modal {
+  background: var(--bg2);
+  border: 1px solid rgba(0,245,255,0.2);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 520px;
+  padding: 2rem;
+  position: relative;
+  box-shadow: 0 0 60px rgba(0,245,255,0.08);
+  animation: modalIn 0.3s ease both;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.93) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 16px;
+  transition: all 0.2s;
+}
+.modal-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+/* Modal content */
+.mstep { display: none; }
+.mstep.active { display: block; }
+
+.modal-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+
+.modal-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Instruction box */
+.instr-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.25rem;
+}
+
+.instr-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.instr-row + .instr-row {
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.instr-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cyan);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,245,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.instr-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Redirect url */
+.redirect-box {
+  background: rgba(0,245,255,0.04);
+  border: 1px solid rgba(0,245,255,0.15);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.redirect-box svg { width: 14px; height: 14px; fill: var(--cyan); flex-shrink: 0; }
+.redirect-url { font-family: monospace; font-size: 12px; color: var(--cyan); word-break: break-all; }
+
+/* Buttons */
+.btn-go {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, #00f5ff22, #00f5ff11);
+  border: 1px solid var(--cyan);
+  border-radius: 12px;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  box-shadow: 0 0 20px rgba(0,245,255,0.1);
+}
+
+.btn-go:hover {
+  background: linear-gradient(135deg, #00f5ff33, #00f5ff18);
+  box-shadow: 0 0 30px rgba(0,245,255,0.2);
+  transform: translateY(-1px);
+}
+
+.btn-go svg { width: 16px; height: 16px; fill: currentColor; }
+
+.btn-cancel {
+  width: 100%;
+  padding: 11px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-cancel:hover { border-color: rgba(255,255,255,0.15); color: var(--text); }
+
+/* Script unlock area */
+.script-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.script-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: blink 1s ease infinite;
+}
+
+.script-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--green);
+  text-transform: uppercase;
+}
+
+.script-box {
+  background: #030306;
+  border: 1px solid rgba(0,255,136,0.15);
+  border-radius: 10px;
+  padding: 1rem;
+  font-family: monospace;
+  font-size: 12px;
+  color: #88ffb8;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 180px;
+  overflow-y: auto;
+  line-height: 1.65;
+  margin-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,255,136,0.2) transparent;
+}
+
+.copy-feedback {
+  text-align: center;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  min-height: 18px;
+  margin-bottom: 8px;
+}
+
+.btn-copy {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, #00ff8822, #00ff8811);
+  border: 1px solid var(--green);
+  border-radius: 12px;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--green);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  box-shadow: 0 0 20px rgba(0,255,136,0.1);
+}
+
+.btn-copy:hover {
+  background: linear-gradient(135deg, #00ff8833, #00ff8818);
+  box-shadow: 0 0 30px rgba(0,255,136,0.2);
+}
+
+.btn-copy svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* Success banner */
+.success-banner {
+  display: none;
+  background: rgba(0,255,136,0.07);
+  border: 1px solid rgba(0,255,136,0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--green);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+.success-banner.show { display: block; }
+
+/* Footer */
+footer {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 0 1.5rem 3rem;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.footer-inner {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,245,255,0.2); border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="orb2"></div>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="site-badge">Roblox Script Hub</div>
+  <h1>SCRIPT <span class="accent">HUB</span></h1>
+  <p class="subtitle">Free Roblox Scripts — Verified &amp; Updated</p>
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-num" id="totalScripts">4</span>
+      <span class="stat-label">Scripts</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <span class="stat-num">Free</span>
+      <span class="stat-label">Harga</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <span class="stat-num">Updated</span>
+      <span class="stat-label">Status</span>
+    </div>
+  </div>
+</header>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <span class="search-icon">⌕</span>
+  <input class="search-input" type="text" placeholder="Cari script atau game..." id="searchInput" oninput="filterScripts()">
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-wrap">
+  <button class="filter-btn active">Roblox</button>
+</div>
+
+<!-- GRID -->
+<div class="grid-wrap" id="scriptGrid"></div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBd">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <!-- Script Unlocked -->
+    <div class="mstep active" id="ms3">
+      <div class="success-banner show">✓ Verifikasi berhasil — Script terbuka!</div>
+      <div class="script-header">
+        <div class="script-dot"></div>
+        <span class="script-label" id="m_title">Script siap disalin</span>
+      </div>
+      <div class="script-box" id="m_code"></div>
+      <p class="copy-feedback" id="m_feedback"></p>
+      <button class="btn-copy" onclick="copyCode()">
+        <svg viewBox="0 0 16 16"><path d="M4 2a2 2 0 012-2h4.586A2 2 0 0112 .586L13.414 2A2 2 0 0114 3.414V10a2 2 0 01-2 2H6a2 2 0 01-2-2V2zm2-1a1 1 0 00-1 1v8a1 1 0 001 1h6a1 1 0 001-1V3.414L11.586 2 10 .414A1 1 0 009.586 1H6zm-4 3a1 1 0 00-1 1v8a1 1 0 001 1h6a1 1 0 001-1v-1H5V4H2z"/></svg>
+        Salin Script
+      </button>
+      <button class="btn-cancel" onclick="closeModal()">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p>Script Hub &mdash; For educational purposes only &bull; Use at your own risk</p>
+  </div>
+</footer>
+
+<script>
+// =============================================
+// ===  KONFIGURASI SCRIPT - EDIT DI SINI  ===
+// =============================================
+const BASE_URL = "https://yourwebsite.com"; // << Ganti dengan domain Anda
+
+const SCRIPTS = [
+  {
+    id: 1,
+    name: "Auto Farm Pro",
+    game: "Blox Fruits",
+    category: "farming",
+    icon: "🌾",
+    accentColor: "#00ff88",
+    desc: "Auto farm level, buah, dan boss secara otomatis. Support semua sea.",
+    features: ["Auto Level", "Fruit Farm", "Boss Farm", "Anti AFK"],
+    status: ["FREE", "HOT"],
+    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD", // << Ganti
+    code: `-- Auto Farm Pro - Blox Fruits
+-- Made by: YourName
+-- loadstring(game:HttpGet("https://yourscript.com/bloxfarm.lua"))()`
+  },
+  {
+    id: 2,
+    name: "ESP & Aimbot",
+    game: "Arsenal",
+    category: "combat",
+    icon: "🎯",
+    accentColor: "#ff3366",
+    desc: "Lihat semua pemain melalui tembok. Aimbot presisi tinggi dengan silent aim.",
+    features: ["Player ESP", "Silent Aim", "No Recoil", "Speed"],
+    status: ["FREE", "NEW"],
+    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD",
+    code: `-- ESP & Aimbot - Arsenal
+-- Made by: YourName
+-- loadstring(game:HttpGet("https://yourscript.com/arsenal-esp.lua"))()`
+  },
+  {
+    id: 3,
+    name: "Infinite Yield",
+    game: "All Games",
+    category: "utility",
+    icon: "⚡",
+    accentColor: "#ffaa00",
+    desc: "Admin commands lengkap untuk semua game. Lebih dari 200 command tersedia.",
+    features: ["200+ CMD", "All Games", "Fly", "Noclip"],
+    status: ["FREE"],
+    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD",
+    code: `-- Infinite Yield
+-- Made by: YourName
+-- loadstring(game:HttpGet("https://yourscript.com/iy.lua"))()`
+  },
+  {
+    id: 4,
+    name: "Dupe GUI v3",
+    game: "Pet Simulator X",
+    category: "gui",
+    icon: "🖥️",
+    accentColor: "#b04cff",
+    desc: "Interface GUI lengkap untuk dupe pet, auto collect, dan farm coins.",
+    features: ["Auto Farm", "Dupe", "GUI Panel", "Safe Mode"],
+    status: ["FREE", "UPD"],
+    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD",
+    code: `-- Dupe GUI v3 - Pet Sim X
+-- Made by: YourName
+-- loadstring(game:HttpGet("https://yourscript.com/psxgui.lua"))()`
+  },
+  {
+    id: 5,
+    name: "Speed & Fly Hack",
+    game: "All Games",
+    category: "utility",
+    icon: "🚀",
+    accentColor: "#00f5ff",
+    desc: "Speed boost dan fly mode untuk hampir semua game. Anti-kick built-in.",
+    features: ["Speed x50", "Fly Mode", "Anti-Kick", "All Games"],
+    status: ["FREE"],
+    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD",
+    code: `-- Speed & Fly Hack
+-- Made by: YourName
+-- loadstring(game:HttpGet("https://yourscript.com/speedfly.lua"))()`
+  },
+  {
+    id: 6,
+    name: "Auto Raid Farm",
+    game: "Blox Fruits",
+    category: "farming",
+    icon: "⚔️",
+    accentColor: "#ff3366",
+    desc: "Auto raid dan collect reward secara otomatis. Support co-op raid.",
+    features: ["Auto Raid", "Co-op", "Reward Farm", "24/7"],
+    status: ["FREE", "HOT"],
+    adUrl: "https://direct-link.net/4278475/eoNh5xi12MwD",
+    code: `-- Auto Raid Farm - Blox Fruits
+-- Made by: YourName
+-- loadstring(game:HttpGet("https://yourscript.com/bloxraid.lua"))()`
+  }
+];
+// ============================================
+
+const STATUS_MAP = {
+  FREE: 'badge-free',
+  NEW:  'badge-new',
+  HOT:  'badge-red',
+  UPD:  'badge-upd'
+};
+const STATUS_LABEL = {
+  FREE: 'FREE',
+  NEW:  'NEW',
+  HOT:  'HOT',
+  UPD:  'UPDATED'
+};
+
+let currentScript = null;
+
+function renderCards(list) {
+  const grid = document.getElementById('scriptGrid');
+  grid.innerHTML = '';
+  if (list.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted);font-size:14px;letter-spacing:0.1em;">Tidak ada script ditemukan.</div>';
+    return;
+  }
+  list.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'script-card';
+    card.style.setProperty('--accent-color', s.accentColor);
+    card.style.animationDelay = (i * 0.08) + 's';
+
+    const statusHTML = s.status.map(st =>
+      `<span class="badge ${STATUS_MAP[st] || 'badge-free'}">${STATUS_LABEL[st] || st}</span>`
+    ).join('');
+
+    const featsHTML = s.features.map(f =>
+      `<span class="feat-tag">${f}</span>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-icon" style="background:${s.accentColor}18;border:1px solid ${s.accentColor}30;">${s.icon}</div>
+        <div class="card-badges">${statusHTML}</div>
+      </div>
+      <p class="card-name">${s.name}</p>
+      <p class="card-game">${s.game}</p>
+      <p class="card-desc">${s.desc}</p>
+      <div class="card-features">${featsHTML}</div>
+      <button class="card-btn" style="color:${s.accentColor};border-color:${s.accentColor}55;background:${s.accentColor}10;" onclick="goToLinkvertise(${s.id})">
+        <svg viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 01.5.5v2.5a1 1 0 001 1h12a1 1 0 001-1v-2.5a.5.5 0 011 0v2.5a2 2 0 01-2 2H2a2 2 0 01-2-2v-2.5a.5.5 0 01.5-.5z"/><path d="M7.646 1.146a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8.5 2.707V11.5a.5.5 0 01-1 0V2.707L5.354 4.854a.5.5 0 11-.708-.708l3-3z"/></svg>
+        Get Script
+      </button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterScripts() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  let list = SCRIPTS;
+  if (q) list = list.filter(s =>
+    s.name.toLowerCase().includes(q) ||
+    s.game.toLowerCase().includes(q) ||
+    s.desc.toLowerCase().includes(q)
+  );
+  renderCards(list);
+}
+
+function goToLinkvertise(id) {
+  const s = SCRIPTS.find(x => x.id === id);
+  if (!s) return;
+  const redirect = encodeURIComponent(BASE_URL + "?verified=true&script=" + id);
+  window.location.href = s.adUrl + "?r=" + redirect;
+}
+
+function openModal(id) {
+  const s = SCRIPTS.find(x => x.id === id);
+  if (!s) return;
+  currentScript = s;
+  document.getElementById('m_title').textContent = s.name + ' — ' + s.game;
+  document.getElementById('m_code').textContent = s.code;
+  document.getElementById('m_feedback').textContent = '';
+  document.getElementById('modalBd').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modalBd').classList.remove('open');
+  currentScript = null;
+}
+
+function copyCode() {
+  if (!currentScript) return;
+  navigator.clipboard.writeText(currentScript.code).then(() => {
+    const fb = document.getElementById('m_feedback');
+    fb.textContent = '✓ Script berhasil disalin!';
+    setTimeout(() => fb.textContent = '', 3000);
+  });
+}
+
+// Auto-check URL params on load
+function checkVerified() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('verified') === 'true') {
+    const id = parseInt(params.get('script'));
+    if (id) openModal(id);
+  }
+}
+
+// Close on backdrop click
+document.getElementById('modalBd').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Init
+renderCards(SCRIPTS);
+document.getElementById('totalScripts').textContent = SCRIPTS.length;
+checkVerified();
+</script>
+</body>
+</html>
