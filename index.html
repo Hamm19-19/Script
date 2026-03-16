@@ -1103,6 +1103,132 @@ const SCRIPTS = [
     status: ["FREE"],
     adUrl: "https://direct-link.net/4278475/dubviwZUeDQG",
     code: `loadstring(game:HttpGet("https://raw.githubusercontent.com/meobeo8/a/a/a"))()`
+  },
+  {
+    id: 20,
+    name: "Bear Hub",
+    game: "Blox Fruit",
+    category: "blox-fruit",
+    icon: "🐻",
+    accentColor: "#00f5ff",
+    desc: "The Best Script for Blox Fruit",
+    features: ["Update New Event"],
+    status: ["FREE"],
+    adUrl: "https://direct-link.net/4278475/Qg5Po1tN8xHT",
+    code: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Huylovemy/Bearhudz/refs/heads/main/Bearhud.lua"))()`
+  },
+  {
+    id: 21,
+    name: "Dragon Hub",
+    game: "Blox Fruit",
+    category: "blox-fruit",
+    icon: "🐉",
+    accentColor: "#ff3366",
+    desc: "The Best Script for Blox Fruit",
+    features: ["Update New Event"],
+    status: ["FREE"],
+    adUrl: "https://link-center.net/4278475/omNs2oWvo2FD",
+    code: `repeat wait() until game:IsLoaded() and game.Players.LocalPlayer 
+getgenv().team = "Pirates" -- Pirates or Marines
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dragonhubdev/dragonwitheveryone/refs/heads/main/Main-BF.lua"))()`
+  },
+  {
+    id: 22,
+    name: "Xeter Hub",
+    game: "Blox Fruit",
+    category: "blox-fruit",
+    icon: "⚔️",
+    accentColor: "#b04cff",
+    desc: "The Best Script for Blox Fruit",
+    features: ["Update New Event"],
+    status: ["FREE"],
+    adUrl: "https://link-hub.net/4278475/GU7HAHWQDao4",
+    code: `-- Xeter V1
+getgenv().Version = "V1"
+getgenv().Team = "Marines"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TlDinhKhoi/Xeter/refs/heads/main/Main.lua"))()
+-- Xeter V2
+getgenv().Version = "V2"
+getgenv().Team = "Marines"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TlDinhKhoi/Xeter/refs/heads/main/Main.lua"))()
+-- Xeter V3
+getgenv().Version = "V3"
+getgenv().Team = "Marines"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TlDinhKhoi/Xeter/refs/heads/main/Main.lua"))()
+-- Xeter V4
+getgenv().Version = "V4"
+getgenv().Team = "Marines"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TlDinhKhoi/Xeter/refs/heads/main/Main.lua"))()`
+  },
+  {
+    id: 23,
+    name: "Banana Hub",
+    game: "Blox Fruit",
+    category: "blox-fruit",
+    icon: "🍌",
+    accentColor: "#ffaa00",
+    desc: "The Best Script for Blox Fruit",
+    features: ["Update New Event"],
+    status: ["FREE"],
+    adUrl: "https://link-hub.net/4278475/t6OlmFnUQmaG",
+    code: `loadstring(game:HttpGet("https://raw.githubusercontent.com/aloaloalo322/sssdas/refs/heads/main/cc"))()`
+  },
+  {
+    id: 24,
+    name: "Redz Hub",
+    game: "Blox Fruit",
+    category: "blox-fruit",
+    icon: "🔴",
+    accentColor: "#ff3366",
+    desc: "The Best Script for Blox Fruit",
+    features: ["Update New Event"],
+    status: ["FREE"],
+    adUrl: "https://link-target.net/4278475/rGGShbOXZeCP",
+    code: `local Settings = {
+  JoinTeam = "Pirates"; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PlockScripts/newredz/refs/heads/main/Remake-version.luau"))(Settings)`
+  },
+  {
+    id: 25,
+    name: "Quantum Hub",
+    game: "Blox Fruit",
+    category: "blox-fruit",
+    icon: "⚡",
+    accentColor: "#00ff88",
+    desc: "The Best Script for Blox Fruit",
+    features: ["Update New Event"],
+    status: ["FREE"],
+    adUrl: "https://link-target.net/4278475/yfHkEkBrRuED",
+    code: `loadstring(game:HttpGet("https://raw.githubusercontent.com/flazhy/QuantumOnyx/refs/heads/main/QuantumOnyx.lua"))()`
+  },
+  {
+    id: 26,
+    name: "Gravity Hub",
+    game: "Blox Fruit",
+    category: "blox-fruit",
+    icon: "🌑",
+    accentColor: "#00f5ff",
+    desc: "The Best Script for Blox Fruit",
+    features: ["Update New Event"],
+    status: ["FREE"],
+    adUrl: "https://link-target.net/4278475/bE3a74JBGztc",
+    code: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-GravityHub/BloxFruit/refs/heads/main/Main.lua"))()`
+  },
+  {
+    id: 27,
+    name: "Teddy Hub",
+    game: "Blox Fruit",
+    category: "blox-fruit",
+    icon: "🧸",
+    accentColor: "#ffaa00",
+    desc: "The Best Script for Blox Fruit",
+    features: ["Update New Event"],
+    status: ["FREE"],
+    adUrl: "https://link-hub.net/4278475/4Eni7XdyAwxo",
+    code: `repeat task.wait() until game:IsLoaded() and game:GetService("Players") and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("PlayerGui")
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/e86ed284a22672d29e906214e7bbf8b9.lua"))()`
   }
 ];
 // ============================================
@@ -1218,6 +1344,8 @@ function checkVerified() {
   if (params.get('verified') === 'true') {
     const id = parseInt(params.get('script'));
     if (id) openModal(id);
+    // Bersihkan URL agar tidak terlihat
+    window.history.replaceState({}, document.title, window.location.pathname);
   }
 }
 
@@ -1273,7 +1401,7 @@ updateVisitCount();
 
 // Init
 renderCards(SCRIPTS);
-document.getElementById('totalScripts').textContent = SCRIPTS.length;
+document.getElementById('totalScripts').textContent = [...new Set(SCRIPTS.map(s => s.name))].length;
 checkVerified();
 </script>
 </body>
